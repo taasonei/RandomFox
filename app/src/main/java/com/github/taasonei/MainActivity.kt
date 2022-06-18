@@ -3,11 +3,18 @@ package com.github.taasonei
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.github.taasonei.databinding.ActivityMainBinding
-import com.google.android.material.tabs.TabLayout
+import com.github.taasonei.ui.FavouritesListFragment
+import com.github.taasonei.ui.RecentImageFragment
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    private val fragmentList = listOf(
+        RecentImageFragment.newInstance(),
+        FavouritesListFragment.newInstance()
+    )
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,15 +22,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-            }
+        val adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
+        binding.viewPager.adapter = adapter
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            val icons = resources.obtainTypedArray(R.array.tab_icons)
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-        })
+            tab.text = resources.getStringArray(R.array.tabs_text)[position]
+            tab.icon = icons.getDrawable(position)
+
+            icons.recycle()
+        }.attach()
     }
+
 }

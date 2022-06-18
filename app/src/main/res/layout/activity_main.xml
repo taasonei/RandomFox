@@ -12,27 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabInlineLabel="true"
-        app:tabMode="fixed">
+        app:tabMode="fixed" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/ic_outline_schedule"
-            android:text="@string/tab_text_label_recent" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/ic_outline_favorite"
-            android:text="@string/tab_text_label_favourites" />
-
-    </com.google.android.material.tabs.TabLayout>
-
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container"
-        android:name="com.github.taasonei.ui.FavouritesListFragment"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
 </LinearLayout>
