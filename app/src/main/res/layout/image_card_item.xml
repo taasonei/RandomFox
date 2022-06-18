@@ -1,0 +1,22 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/image_card"
+    android:layout_width="180dp"
+    android:layout_height="180dp"
+    android:layout_margin="@dimen/margin_tiny">
+
+    <ImageView
+        android:id="@+id/fox_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/recent_image_description"
+        android:scaleType="centerCrop"
+        android:src="@drawable/placeholder_fox" />
+
+    <CheckBox
+        android:id="@+id/toggle_favourite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:button="@drawable/selector_favourite" />
+
+</com.google.android.material.card.MaterialCardView>

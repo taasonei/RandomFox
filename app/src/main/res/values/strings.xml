@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RandomFox</string>
+    <string name="tab_text_label_recent">Recent</string>
+    <string name="tab_text_label_favourites">Favourites</string>
+    <string name="fab_random_description">Get a new random fox</string>
+    <string name="recent_image_description">Here is a fox photo</string>
 </resources>
