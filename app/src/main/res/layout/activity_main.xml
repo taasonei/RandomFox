@@ -28,4 +28,11 @@
 
     </com.google.android.material.tabs.TabLayout>
 
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:name="com.github.taasonei.RecentImageFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </LinearLayout>
