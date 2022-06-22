@@ -3,6 +3,11 @@ package com.github.taasonei.model
 import androidx.annotation.DrawableRes
 import com.github.taasonei.R
 
+data class FoxPhoto(
+    val image: String,
+    val link: String
+)
+
 data class Photo(
     val id: String,
     @DrawableRes val res: Int

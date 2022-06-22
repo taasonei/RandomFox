@@ -9,11 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/recent_image_description"
-        android:scaleType="centerCrop"
-        android:src="@drawable/placeholder_fox" />
+        android:scaleType="centerCrop" />
 
     <CheckBox
-        android:id="@+id/toggle_favourite"
+        android:id="@+id/like_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|end"

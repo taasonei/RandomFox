@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="tab_icons">
-        <item>@drawable/ic_outline_favorite</item>
         <item>@drawable/ic_outline_schedule</item>
+        <item>@drawable/ic_outline_favorite</item>
     </array>
 </resources>
