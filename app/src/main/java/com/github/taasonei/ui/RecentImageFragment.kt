@@ -10,7 +10,6 @@ import coil.request.ImageRequest
 import com.github.taasonei.R
 import com.github.taasonei.databinding.FragmentRecentImageBinding
 import com.github.taasonei.extensions.onTouch
-import com.github.taasonei.model.FoxPhoto
 import com.github.taasonei.model.Status
 import com.github.taasonei.viewmodel.RecentImageViewModel
 
@@ -59,15 +58,24 @@ class RecentImageFragment : Fragment() {
             viewModel.getFoxPhoto()
         }
 
-        viewModel.foxPhoto.observe(viewLifecycleOwner) { foxPhoto ->
-            if (viewModel.status.value is Status.Success) {
-                loadPhoto(foxPhoto)
-            }
-        }
-
         viewModel.status.observe(viewLifecycleOwner) { status ->
-            if (status is Status.Error) {
-                Toast.makeText(requireContext(), status.message, Toast.LENGTH_SHORT).show()
+            when (status) {
+                is Status.Error -> {
+                    // TODO error toast
+                    Toast.makeText(requireContext(), status.message, Toast.LENGTH_SHORT).show()
+
+                    if (binding.recentImageCard.foxPhoto.drawable == null) {
+                        loadPhoto("https://randomfox.ca/images/50.jpg")
+                    }
+                }
+                is Status.Success -> {
+                    val foxPhoto = viewModel.foxPhoto.value
+                    if (foxPhoto != null) {
+                        loadPhoto(foxPhoto.image)
+                    } else {
+                        //TODO error toast
+                    }
+                }
             }
         }
     }
@@ -77,9 +85,9 @@ class RecentImageFragment : Fragment() {
         _binding = null
     }
 
-    private fun loadPhoto(foxPhoto: FoxPhoto) {
+    private fun loadPhoto(link: String) {
         val request = ImageRequest.Builder(requireContext())
-            .data(foxPhoto.image)
+            .data(link)
             .listener(
                 onStart = {
                     showProgressBar()
@@ -91,6 +99,7 @@ class RecentImageFragment : Fragment() {
                 onError = { _, _ ->
                     hideProgressBar()
                     binding.recentImageCard.foxPhoto.setImageResource(R.drawable.ic_baseline_broken_image)
+                    // TODO error toast
                 })
             .build()
 

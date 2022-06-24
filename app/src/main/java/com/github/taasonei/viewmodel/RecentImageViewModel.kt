@@ -27,8 +27,8 @@ class RecentImageViewModel : ViewModel() {
     fun getFoxPhoto() {
         viewModelScope.launch {
             try {
-                _status.value = Status.Success
                 _foxPhoto.value = FoxApi.retrofitService.getPhoto()
+                _status.value = Status.Success
                 Log.d("tag", _foxPhoto.value.toString())
             } catch (e: Exception) {
                 _status.value = Status.Error(e.toString())
