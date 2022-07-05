@@ -10,7 +10,7 @@ interface FavouritesDao {
     fun getAllPhotos(): Flow<List<FavouriteFoxPhoto>>
 
     @Query("SELECT * FROM favourites WHERE id = :id")
-    fun getPhoto(id: String): Flow<FavouriteFoxPhoto>
+    suspend fun getPhoto(id: String):FavouriteFoxPhoto?
 
     @Delete
     suspend fun deletePhoto(foxPhoto: FavouriteFoxPhoto)

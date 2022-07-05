@@ -12,6 +12,7 @@ import com.github.taasonei.databinding.FragmentRecentImageBinding
 import com.github.taasonei.extensions.onTouch
 import com.github.taasonei.model.Status
 import com.github.taasonei.viewmodel.RecentImageViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class RecentImageFragment : Fragment() {
 
@@ -38,6 +39,11 @@ class RecentImageFragment : Fragment() {
             GestureDetector(requireContext(), object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent?): Boolean {
                     checkBox.isChecked = !checkBox.isChecked
+                    if (checkBox.isChecked) {
+                        addToFavourites()
+                    } else {
+                        removeFromFavourites()
+                    }
                     return super.onDoubleTap(e)
                 }
             })
@@ -46,8 +52,8 @@ class RecentImageFragment : Fragment() {
             gestureDetector.onTouchEvent(event)
         }
 
-        checkBox.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+        checkBox.setOnClickListener {
+            if (checkBox.isChecked) {
                 addToFavourites()
             } else {
                 removeFromFavourites()
@@ -66,12 +72,14 @@ class RecentImageFragment : Fragment() {
 
                     if (binding.recentImageCard.foxPhoto.drawable == null) {
                         loadPhoto("https://randomfox.ca/images/50.jpg")
+                        //binding.recentImageCard.likeCheckbox.isChecked = foxPhoto.isFavourite
                     }
                 }
                 is Status.Success -> {
                     val foxPhoto = viewModel.foxPhoto.value
                     if (foxPhoto != null) {
                         loadPhoto(foxPhoto.image)
+                        binding.recentImageCard.likeCheckbox.isChecked = foxPhoto.isFavourite
                     } else {
                         //TODO error toast
                     }
@@ -121,13 +129,14 @@ class RecentImageFragment : Fragment() {
     }
 
     private fun addToFavourites() {
-        //TODO add to db
+        viewModel.insertToFavourites()
         Toast.makeText(requireContext(), "Added to favourites", Toast.LENGTH_SHORT).show()
     }
 
     private fun removeFromFavourites() {
         //TODO remove from db
         //TODO replace toast on snackbar with undo
+        viewModel.deleteFromFavourites()
         Toast.makeText(requireContext(), "Removed from favourites", Toast.LENGTH_SHORT)
             .show()
     }

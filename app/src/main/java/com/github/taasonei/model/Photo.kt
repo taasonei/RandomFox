@@ -5,7 +5,8 @@ import com.github.taasonei.R
 
 data class FoxPhoto(
     val image: String,
-    val link: String
+    val link: String,
+    var isFavourite: Boolean = false
 )
 
 data class Photo(
