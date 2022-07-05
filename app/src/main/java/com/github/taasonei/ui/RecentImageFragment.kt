@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import coil.imageLoader
 import coil.request.ImageRequest
@@ -17,7 +18,8 @@ import com.google.android.material.snackbar.Snackbar
 class RecentImageFragment : Fragment() {
 
     private var _binding: FragmentRecentImageBinding? = null
-    private val binding get() = _binding!!
+    private val binding
+        get() = _binding!!
 
     private val viewModel: RecentImageViewModel by viewModels()
 
@@ -130,14 +132,25 @@ class RecentImageFragment : Fragment() {
 
     private fun addToFavourites() {
         viewModel.insertToFavourites()
-        Toast.makeText(requireContext(), "Added to favourites", Toast.LENGTH_SHORT).show()
+        binding.recentImageCard.likeCheckbox.isChecked = true
+        Snackbar.make(
+            binding.root,
+            getString(R.string.insert_into_db),
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 
     private fun removeFromFavourites() {
-        //TODO remove from db
-        //TODO replace toast on snackbar with undo
         viewModel.deleteFromFavourites()
-        Toast.makeText(requireContext(), "Removed from favourites", Toast.LENGTH_SHORT)
+
+        Snackbar.make(
+            binding.root,
+            getString(R.string.delete_from_db),
+            Snackbar.LENGTH_LONG
+        )
+            .setAction(getString(R.string.undo_action)) {
+                addToFavourites()
+            }
             .show()
     }
 

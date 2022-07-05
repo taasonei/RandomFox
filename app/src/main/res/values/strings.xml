@@ -4,4 +4,7 @@
     <string name="tab_text_label_favourites">Favourites</string>
     <string name="fab_random_description">Get a new random fox</string>
     <string name="recent_image_description">Here is a fox photo</string>
+    <string name="delete_from_db">Removed from favourites</string>
+    <string name="insert_into_db">Added to favourites</string>
+    <string name="undo_action">Undo</string>
 </resources>
