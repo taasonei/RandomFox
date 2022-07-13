@@ -1,14 +1,14 @@
 package com.github.taasonei.randomfox.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.github.taasonei.randomfox.model.Photo
+import com.github.taasonei.randomfox.model.FoxPhoto
 
-class ImageCardDiffUtil : DiffUtil.ItemCallback<Photo>() {
-    override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
-        return oldItem.id == newItem.id
+class ImageCardDiffUtil : DiffUtil.ItemCallback<FoxPhoto>() {
+    override fun areItemsTheSame(oldItem: FoxPhoto, newItem: FoxPhoto): Boolean {
+        return oldItem.link == newItem.link
     }
 
-    override fun areContentsTheSame(oldItem: Photo, newItem: Photo): Boolean {
-        return oldItem.res == newItem.res
+    override fun areContentsTheSame(oldItem: FoxPhoto, newItem: FoxPhoto): Boolean {
+        return oldItem == newItem
     }
 }

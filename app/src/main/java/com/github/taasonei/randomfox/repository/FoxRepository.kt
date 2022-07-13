@@ -4,10 +4,13 @@ import android.content.Context
 import com.github.taasonei.randomfox.data.dataStore
 import com.github.taasonei.randomfox.database.DatabaseFox
 import com.github.taasonei.randomfox.database.FoxDatabase
+import com.github.taasonei.randomfox.database.asFoxPhotoList
 import com.github.taasonei.randomfox.model.FoxPhoto
 import com.github.taasonei.randomfox.network.FoxApi
 import com.github.taasonei.randomfox.network.asFoxPhoto
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 
 class FoxRepository(private val context: Context) {
 
@@ -66,7 +69,10 @@ class FoxRepository(private val context: Context) {
         database.favouritesDao().deleteFoxPhoto(dbFox)
     }
 
-    fun getFoxPhotosFromDatabase() =
-        database.favouritesDao().getAllFoxPhotos()
+    fun getFoxPhotosFromDatabase(): Flow<List<FoxPhoto>> {
+        return database.favouritesDao().getAllFoxPhotos().map { listDbFox ->
+            listDbFox.asFoxPhotoList()
+        }
+    }
 
 }
