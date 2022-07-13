@@ -1,18 +1,17 @@
-package com.github.taasonei.ui
+package com.github.taasonei.randomfox.ui
 
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import coil.imageLoader
 import coil.request.ImageRequest
-import com.github.taasonei.R
-import com.github.taasonei.databinding.FragmentRecentImageBinding
-import com.github.taasonei.extensions.onTouch
-import com.github.taasonei.model.Status
-import com.github.taasonei.viewmodel.RecentImageViewModel
+import com.github.taasonei.randomfox.R
+import com.github.taasonei.randomfox.databinding.FragmentRecentImageBinding
+import com.github.taasonei.randomfox.extensions.onTouch
+import com.github.taasonei.randomfox.model.Status
+import com.github.taasonei.randomfox.viewmodel.RecentImageViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class RecentImageFragment : Fragment() {

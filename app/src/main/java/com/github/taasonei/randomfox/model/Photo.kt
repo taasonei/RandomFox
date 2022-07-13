@@ -1,11 +1,11 @@
-package com.github.taasonei.model
+package com.github.taasonei.randomfox.model
 
 import androidx.annotation.DrawableRes
-import com.github.taasonei.R
+import com.github.taasonei.randomfox.R
 
 data class FoxPhoto(
-    val image: String,
     val link: String,
+    val image: String,
     var isFavourite: Boolean = false
 )
 

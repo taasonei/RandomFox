@@ -1,13 +1,13 @@
-package com.github.taasonei.ui
+package com.github.taasonei.randomfox.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.github.taasonei.recycler.ImageCardAdapter
-import com.github.taasonei.databinding.FragmentFavouriteListBinding
-import com.github.taasonei.model.photoList
+import com.github.taasonei.randomfox.recycler.ImageCardAdapter
+import com.github.taasonei.randomfox.databinding.FragmentFavouriteListBinding
+import com.github.taasonei.randomfox.model.photoList
 
 class FavouritesListFragment : Fragment() {
 

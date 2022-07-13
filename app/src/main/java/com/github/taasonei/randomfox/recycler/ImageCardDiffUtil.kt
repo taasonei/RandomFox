@@ -1,7 +1,7 @@
-package com.github.taasonei.recycler
+package com.github.taasonei.randomfox.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.github.taasonei.model.Photo
+import com.github.taasonei.randomfox.model.Photo
 
 class ImageCardDiffUtil : DiffUtil.ItemCallback<Photo>() {
     override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {

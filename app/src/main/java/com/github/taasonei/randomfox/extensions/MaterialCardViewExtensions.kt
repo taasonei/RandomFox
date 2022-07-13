@@ -1,4 +1,4 @@
-package com.github.taasonei.extensions
+package com.github.taasonei.randomfox.extensions
 
 import android.view.MotionEvent
 import android.view.View
