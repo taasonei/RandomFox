@@ -1,7 +1,8 @@
 package com.github.taasonei.randomfox.repository
 
 import android.content.Context
-import com.github.taasonei.randomfox.data.dataStore
+import android.util.Log
+import com.github.taasonei.randomfox.data.LastFox
 import com.github.taasonei.randomfox.database.DatabaseFox
 import com.github.taasonei.randomfox.database.FoxDatabase
 import com.github.taasonei.randomfox.database.asFoxPhotoList
@@ -9,34 +10,32 @@ import com.github.taasonei.randomfox.model.FoxPhoto
 import com.github.taasonei.randomfox.network.FoxApi
 import com.github.taasonei.randomfox.network.asFoxPhoto
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class FoxRepository(private val context: Context) {
 
     private val database: FoxDatabase = FoxDatabase.getDatabase(context)
 
-    private suspend fun fetchLastFox() = context.dataStore.data.first()
+    private val lastFox = LastFox(context)
 
-    suspend fun updateLastFox(foxPhoto: FoxPhoto) {
-        context.dataStore.updateData { currentLastFox ->
-            currentLastFox.toBuilder()
-                .setImage(foxPhoto.image)
-                .setLink(foxPhoto.link)
-                .setIsFavourite(foxPhoto.isFavourite)
-                .build()
+    fun writeData(foxPhoto: FoxPhoto) {
+        try {
+            lastFox.writeFile(foxPhoto)
+        } catch (e: AccessDeniedException) {
+            Log.d("tag", e.stackTraceToString())
         }
     }
 
     suspend fun firstLoadFoxPhoto(): FoxPhoto {
-        val lastFox = fetchLastFox()
-        return if (lastFox.image.isNotBlank() && lastFox.link.isNotBlank()) {
-            FoxPhoto(
-                link = lastFox.link,
-                image = lastFox.image,
-                isFavourite = lastFox.isFavourite
-            )
-        } else {
+        return try {
+            val foxFromFile = lastFox.readFile()
+            if (foxFromFile.link.isNotBlank() && foxFromFile.image.isNotBlank()) {
+                foxFromFile
+            } else {
+                loadFoxPhoto()
+            }
+        } catch (e: Exception){
+            Log.d("tag", e.stackTraceToString())
             loadFoxPhoto()
         }
     }
@@ -52,7 +51,7 @@ class FoxRepository(private val context: Context) {
                 foxPhoto.isFavourite = true
             }
 
-            updateLastFox(foxPhoto)
+            writeData(foxPhoto)
 
             return foxPhoto
         } else {

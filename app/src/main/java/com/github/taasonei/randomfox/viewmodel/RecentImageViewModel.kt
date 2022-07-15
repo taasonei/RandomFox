@@ -72,7 +72,7 @@ class RecentImageViewModel(application: Application) : AndroidViewModel(applicat
                         imageLink = imageLink
                     )
                 )
-                repository.updateLastFox(
+                repository.writeData(
                     FoxPhoto(
                         link = id,
                         image = imageLink,
@@ -95,7 +95,7 @@ class RecentImageViewModel(application: Application) : AndroidViewModel(applicat
                         imageLink = imageLink
                     )
                 )
-                repository.updateLastFox(
+                repository.writeData(
                     FoxPhoto(
                         link = id,
                         image = imageLink,
