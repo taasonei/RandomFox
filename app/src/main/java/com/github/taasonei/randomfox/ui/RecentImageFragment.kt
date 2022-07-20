@@ -70,11 +70,6 @@ class RecentImageFragment : Fragment() {
                 is Status.Error -> {
                     // TODO error toast
                     Toast.makeText(requireContext(), status.message, Toast.LENGTH_SHORT).show()
-
-                    if (binding.recentImageCard.foxPhoto.drawable == null) {
-                        loadPhoto("https://randomfox.ca/images/50.jpg")
-                        //binding.recentImageCard.likeCheckbox.isChecked = foxPhoto.isFavourite
-                    }
                 }
                 is Status.Success -> {
                     val foxPhoto = viewModel.foxPhoto.value
@@ -132,6 +127,7 @@ class RecentImageFragment : Fragment() {
     private fun addToFavourites() {
         viewModel.insertToFavourites()
         binding.recentImageCard.likeCheckbox.isChecked = true
+
         Snackbar.make(
             binding.root,
             getString(R.string.insert_into_db),

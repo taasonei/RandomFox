@@ -7,24 +7,19 @@ import com.github.taasonei.randomfox.model.FoxPhoto
 
 @Entity(tableName = "favourites")
 data class DatabaseFox(
-    @PrimaryKey @ColumnInfo(name = "id") val id: String,
-    @ColumnInfo(name = "image_link") val imageLink: String
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id") val id: Long = 0L,
+    @ColumnInfo(name = "link") val link: String,
+    @ColumnInfo(name = "image") val image: String
 )
 
 fun List<DatabaseFox>.asFoxPhotoList(): List<FoxPhoto> {
     return map { dbFox ->
         FoxPhoto(
-            link = dbFox.id,
-            image = dbFox.imageLink,
+            id = dbFox.id,
+            link = dbFox.link,
+            image = dbFox.image,
             isFavourite = true
         )
     }
-}
-
-fun DatabaseFox.asFoxPhoto(): FoxPhoto {
-    return FoxPhoto(
-        image = this.imageLink,
-        link = this.id,
-        isFavourite = true
-    )
 }

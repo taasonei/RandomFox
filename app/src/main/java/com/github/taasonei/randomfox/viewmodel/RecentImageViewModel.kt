@@ -62,46 +62,66 @@ class RecentImageViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun insertToFavourites() {
-        val id = foxPhoto.value?.link
-        val imageLink = foxPhoto.value?.image
-        if (!id.isNullOrBlank() && !imageLink.isNullOrBlank()) {
+        val id = foxPhoto.value?.id
+        val link = foxPhoto.value?.link
+        val image = foxPhoto.value?.image
+        Log.d("tag", "insert $id $link $image")
+
+        if (!link.isNullOrBlank() && !image.isNullOrBlank()) {
             viewModelScope.launch {
-                repository.insert(
-                    DatabaseFox(
-                        id = id,
-                        imageLink = imageLink
-                    )
-                )
+                Log.d("tag", "currentId $id")
+
+                val rowId = if (id != null) {
+                    repository.insert(DatabaseFox(id = id, link = link, image = image))
+                } else {
+                    repository.insert(DatabaseFox(link = link, image = image))
+                }
+
+                val dbId = repository.getFoxPhotoId(rowId)
+                _foxPhoto.value?.isFavourite = true
+                _foxPhoto.value?.id = dbId
+
                 repository.writeData(
                     FoxPhoto(
-                        link = id,
-                        image = imageLink,
+                        id = dbId,
+                        link = link,
+                        image = image,
                         isFavourite = true
                     )
                 )
             }
+
+            Log.d("tag", "foxPhoto after inserting ${foxPhoto.value}")
         }
     }
 
     fun deleteFromFavourites() {
-        val id = foxPhoto.value?.link
-        val imageLink = foxPhoto.value?.image
+        val id = foxPhoto.value?.id
+        val link = foxPhoto.value?.link
+        val image = foxPhoto.value?.image
 
-        if (!id.isNullOrBlank() && !imageLink.isNullOrBlank()) {
+        Log.d("tag", "$id $link $image")
+
+        if (id != null && !link.isNullOrBlank() && !image.isNullOrBlank()) {
             viewModelScope.launch {
                 repository.delete(
                     DatabaseFox(
                         id = id,
-                        imageLink = imageLink
+                        link = link,
+                        image = image
                     )
                 )
                 repository.writeData(
                     FoxPhoto(
-                        link = id,
-                        image = imageLink,
+                        id = null,
+                        link = link,
+                        image = image,
                         isFavourite = false
                     )
                 )
+
+                _foxPhoto.value?.isFavourite = false
+                _foxPhoto.value?.id = null
             }
         }
     }

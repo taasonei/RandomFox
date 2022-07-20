@@ -12,7 +12,7 @@ import com.github.taasonei.randomfox.network.asFoxPhoto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class FoxRepository(private val context: Context) {
+class FoxRepository(context: Context) {
 
     private val database: FoxDatabase = FoxDatabase.getDatabase(context)
 
@@ -48,6 +48,7 @@ class FoxRepository(private val context: Context) {
             val dbFox = database.favouritesDao().getFoxPhoto(response.link)
 
             if (dbFox != null) {
+                foxPhoto.id = dbFox.id
                 foxPhoto.isFavourite = true
             }
 
@@ -60,8 +61,8 @@ class FoxRepository(private val context: Context) {
     }
 
 
-    suspend fun insert(dbFox: DatabaseFox) {
-        database.favouritesDao().insertFoxPhoto(dbFox)
+    suspend fun insert(dbFox: DatabaseFox): Long {
+        return database.favouritesDao().insertFoxPhoto(dbFox)
     }
 
     suspend fun delete(dbFox: DatabaseFox) {
@@ -72,6 +73,10 @@ class FoxRepository(private val context: Context) {
         return database.favouritesDao().getAllFoxPhotos().map { listDbFox ->
             listDbFox.asFoxPhotoList()
         }
+    }
+
+    suspend fun getFoxPhotoId(rowId: Long): Long {
+        return database.favouritesDao().getFoxPhotoId(rowId)
     }
 
 }

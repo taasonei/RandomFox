@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
-import com.github.taasonei.randomfox.recycler.ImageCardAdapter
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
+import com.github.taasonei.randomfox.R
 import com.github.taasonei.randomfox.databinding.FragmentFavouriteListBinding
+import com.github.taasonei.randomfox.recycler.ImageCardAdapter
 import com.github.taasonei.randomfox.viewmodel.FavouritesListViewModel
-import kotlinx.coroutines.flow.onEach
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 class FavouritesListFragment : Fragment() {
@@ -32,12 +34,27 @@ class FavouritesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = ImageCardAdapter()
+        adapter = ImageCardAdapter(viewModel)
+        adapter?.stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
         binding.favouritesList.adapter = adapter
 
         lifecycle.coroutineScope.launch {
-            viewModel.listFoxPhoto.collect() {
-                adapter?.submitList(it)
+            viewModel.listFoxPhoto.collect() { list ->
+                adapter?.submitList(list)
+            }
+        }
+
+        viewModel.foxPhoto.observe(viewLifecycleOwner) { foxPhoto ->
+            if (foxPhoto != null) {
+                Snackbar.make(
+                    requireContext(),
+                    binding.root,
+                    getString(R.string.delete_from_db),
+                    Snackbar.LENGTH_LONG
+                ).setAction(getString(R.string.undo_action)) {
+                    viewModel.insertToFavourites(foxPhoto)
+                }
+                    .show()
             }
         }
 
