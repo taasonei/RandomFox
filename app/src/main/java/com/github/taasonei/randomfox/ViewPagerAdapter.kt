@@ -1,12 +1,11 @@
-package com.github.taasonei
+package com.github.taasonei.randomfox
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.github.taasonei.ui.FavouritesListFragment
-import com.github.taasonei.ui.RecentImageFragment
+import com.github.taasonei.randomfox.ui.FavouritesListFragment
+import com.github.taasonei.randomfox.ui.RecentImageFragment
 
 private const val NUM_TABS = 2
 

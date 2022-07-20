@@ -1,4 +1,4 @@
-package com.github.taasonei.ui
+package com.github.taasonei.randomfox.ui
 
 import android.os.Bundle
 import android.view.*
@@ -7,17 +7,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.imageLoader
 import coil.request.ImageRequest
-import com.github.taasonei.R
-import com.github.taasonei.databinding.FragmentRecentImageBinding
-import com.github.taasonei.extensions.onTouch
-import com.github.taasonei.model.FoxPhoto
-import com.github.taasonei.model.Status
-import com.github.taasonei.viewmodel.RecentImageViewModel
+import com.github.taasonei.randomfox.R
+import com.github.taasonei.randomfox.databinding.FragmentRecentImageBinding
+import com.github.taasonei.randomfox.extensions.onTouch
+import com.github.taasonei.randomfox.model.Status
+import com.github.taasonei.randomfox.viewmodel.RecentImageViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class RecentImageFragment : Fragment() {
 
     private var _binding: FragmentRecentImageBinding? = null
-    private val binding get() = _binding!!
+    private val binding
+        get() = _binding!!
 
     private val viewModel: RecentImageViewModel by viewModels()
 
@@ -39,6 +40,11 @@ class RecentImageFragment : Fragment() {
             GestureDetector(requireContext(), object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent?): Boolean {
                     checkBox.isChecked = !checkBox.isChecked
+                    if (checkBox.isChecked) {
+                        addToFavourites()
+                    } else {
+                        removeFromFavourites()
+                    }
                     return super.onDoubleTap(e)
                 }
             })
@@ -47,8 +53,8 @@ class RecentImageFragment : Fragment() {
             gestureDetector.onTouchEvent(event)
         }
 
-        checkBox.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+        checkBox.setOnClickListener {
+            if (checkBox.isChecked) {
                 addToFavourites()
             } else {
                 removeFromFavourites()
@@ -59,15 +65,21 @@ class RecentImageFragment : Fragment() {
             viewModel.getFoxPhoto()
         }
 
-        viewModel.foxPhoto.observe(viewLifecycleOwner) { foxPhoto ->
-            if (viewModel.status.value is Status.Success) {
-                loadPhoto(foxPhoto)
-            }
-        }
-
         viewModel.status.observe(viewLifecycleOwner) { status ->
-            if (status is Status.Error) {
-                Toast.makeText(requireContext(), status.message, Toast.LENGTH_SHORT).show()
+            when (status) {
+                is Status.Error -> {
+                    // TODO error toast
+                    Toast.makeText(requireContext(), status.message, Toast.LENGTH_SHORT).show()
+                }
+                is Status.Success -> {
+                    val foxPhoto = viewModel.foxPhoto.value
+                    if (foxPhoto != null) {
+                        loadPhoto(foxPhoto.image)
+                        binding.recentImageCard.likeCheckbox.isChecked = foxPhoto.isFavourite
+                    } else {
+                        //TODO error toast
+                    }
+                }
             }
         }
     }
@@ -77,9 +89,9 @@ class RecentImageFragment : Fragment() {
         _binding = null
     }
 
-    private fun loadPhoto(foxPhoto: FoxPhoto) {
+    private fun loadPhoto(link: String) {
         val request = ImageRequest.Builder(requireContext())
-            .data(foxPhoto.image)
+            .data(link)
             .listener(
                 onStart = {
                     showProgressBar()
@@ -91,6 +103,7 @@ class RecentImageFragment : Fragment() {
                 onError = { _, _ ->
                     hideProgressBar()
                     binding.recentImageCard.foxPhoto.setImageResource(R.drawable.ic_baseline_broken_image)
+                    // TODO error toast
                 })
             .build()
 
@@ -112,14 +125,27 @@ class RecentImageFragment : Fragment() {
     }
 
     private fun addToFavourites() {
-        //TODO add to db
-        Toast.makeText(requireContext(), "Added to favourites", Toast.LENGTH_SHORT).show()
+        viewModel.insertToFavourites()
+        binding.recentImageCard.likeCheckbox.isChecked = true
+
+        Snackbar.make(
+            binding.root,
+            getString(R.string.insert_into_db),
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 
     private fun removeFromFavourites() {
-        //TODO remove from db
-        //TODO replace toast on snackbar with undo
-        Toast.makeText(requireContext(), "Removed from favourites", Toast.LENGTH_SHORT)
+        viewModel.deleteFromFavourites()
+
+        Snackbar.make(
+            binding.root,
+            getString(R.string.delete_from_db),
+            Snackbar.LENGTH_LONG
+        )
+            .setAction(getString(R.string.undo_action)) {
+                addToFavourites()
+            }
             .show()
     }
 
