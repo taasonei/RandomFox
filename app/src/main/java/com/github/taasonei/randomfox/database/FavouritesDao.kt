@@ -9,7 +9,7 @@ interface FavouritesDao {
     @Query("SELECT * FROM favourites ORDER BY id")
     fun getAllFoxPhotos(): Flow<List<DatabaseFox>>
 
-    @Query("SELECT * FROM favourites WHERE id = :link")
+    @Query("SELECT * FROM favourites WHERE link = :link")
     suspend fun getFoxPhoto(link: String): DatabaseFox?
 
     @Query("SELECT id FROM favourites WHERE rowid = :rowId")
