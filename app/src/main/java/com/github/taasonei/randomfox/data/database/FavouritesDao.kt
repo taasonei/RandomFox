@@ -1,4 +1,4 @@
-package com.github.taasonei.randomfox.database
+package com.github.taasonei.randomfox.data.database
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

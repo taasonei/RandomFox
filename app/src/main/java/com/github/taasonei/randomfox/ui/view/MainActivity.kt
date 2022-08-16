@@ -1,10 +1,9 @@
-package com.github.taasonei.randomfox
+package com.github.taasonei.randomfox.ui.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.github.taasonei.randomfox.R
 import com.github.taasonei.randomfox.databinding.ActivityMainBinding
-import com.github.taasonei.randomfox.ui.FavouritesListFragment
-import com.github.taasonei.randomfox.ui.RecentImageFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {

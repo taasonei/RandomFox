@@ -1,9 +1,9 @@
-package com.github.taasonei.randomfox.database
+package com.github.taasonei.randomfox.data.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.github.taasonei.randomfox.model.FoxPhoto
+import com.github.taasonei.randomfox.ui.model.FoxPhoto
 
 @Entity(tableName = "favourites")
 data class DatabaseFox(

@@ -1,14 +1,14 @@
-package com.github.taasonei.randomfox.repository
+package com.github.taasonei.randomfox.data.repository
 
 import android.content.Context
 import android.util.Log
 import com.github.taasonei.randomfox.data.LastFox
-import com.github.taasonei.randomfox.database.DatabaseFox
-import com.github.taasonei.randomfox.database.FoxDatabase
-import com.github.taasonei.randomfox.database.asFoxPhotoList
-import com.github.taasonei.randomfox.model.FoxPhoto
-import com.github.taasonei.randomfox.network.FoxApi
-import com.github.taasonei.randomfox.network.asFoxPhoto
+import com.github.taasonei.randomfox.data.database.DatabaseFox
+import com.github.taasonei.randomfox.data.database.FoxDatabase
+import com.github.taasonei.randomfox.data.database.asFoxPhotoList
+import com.github.taasonei.randomfox.ui.model.FoxPhoto
+import com.github.taasonei.randomfox.data.network.FoxApi
+import com.github.taasonei.randomfox.data.network.asFoxPhoto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

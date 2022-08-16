@@ -1,14 +1,15 @@
-package com.github.taasonei.randomfox.recycler
+package com.github.taasonei.randomfox.ui.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.github.taasonei.randomfox.model.FoxPhoto
+import com.github.taasonei.randomfox.ui.model.FoxPhoto
 import com.github.taasonei.randomfox.databinding.ImageCardItemBinding
-import com.github.taasonei.randomfox.viewmodel.FavouritesListViewModel
+import com.github.taasonei.randomfox.ui.viewmodels.FavouritesListViewModel
 
-class ImageCardAdapter(private val viewModel: FavouritesListViewModel) : ListAdapter<FoxPhoto, ImageCardViewHolder>(ImageCardDiffUtil()) {
+class ImageCardAdapter(private val viewModel: FavouritesListViewModel) : ListAdapter<FoxPhoto, ImageCardViewHolder>(
+    ImageCardDiffUtil()
+) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageCardViewHolder {
         return ImageCardViewHolder(
             ImageCardItemBinding.inflate(

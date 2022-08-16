@@ -1,4 +1,4 @@
-package com.github.taasonei.randomfox.database
+package com.github.taasonei.randomfox.data.database
 
 import android.content.Context
 import androidx.room.Database

@@ -1,4 +1,4 @@
-package com.github.taasonei.randomfox.model
+package com.github.taasonei.randomfox.ui.model
 
 sealed interface Status {
     object Success : Status

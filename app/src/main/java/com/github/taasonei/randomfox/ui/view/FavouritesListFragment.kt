@@ -1,4 +1,4 @@
-package com.github.taasonei.randomfox.ui
+package com.github.taasonei.randomfox.ui.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,7 @@ import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
 import com.github.taasonei.randomfox.R
 import com.github.taasonei.randomfox.databinding.FragmentFavouriteListBinding
-import com.github.taasonei.randomfox.recycler.ImageCardAdapter
-import com.github.taasonei.randomfox.viewmodel.FavouritesListViewModel
+import com.github.taasonei.randomfox.ui.viewmodels.FavouritesListViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 

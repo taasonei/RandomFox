@@ -1,11 +1,11 @@
-package com.github.taasonei.randomfox.recycler
+package com.github.taasonei.randomfox.ui.view
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.github.taasonei.randomfox.R
 import com.github.taasonei.randomfox.databinding.ImageCardItemBinding
-import com.github.taasonei.randomfox.model.FoxPhoto
-import com.github.taasonei.randomfox.viewmodel.FavouritesListViewModel
+import com.github.taasonei.randomfox.ui.model.FoxPhoto
+import com.github.taasonei.randomfox.ui.viewmodels.FavouritesListViewModel
 
 class ImageCardViewHolder(private val binding: ImageCardItemBinding) :
     RecyclerView.ViewHolder(binding.root) {

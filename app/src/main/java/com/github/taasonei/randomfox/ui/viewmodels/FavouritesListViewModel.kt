@@ -1,13 +1,13 @@
-package com.github.taasonei.randomfox.viewmodel
+package com.github.taasonei.randomfox.ui.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.github.taasonei.randomfox.database.DatabaseFox
-import com.github.taasonei.randomfox.model.FoxPhoto
-import com.github.taasonei.randomfox.repository.FoxRepository
+import com.github.taasonei.randomfox.data.database.DatabaseFox
+import com.github.taasonei.randomfox.ui.model.FoxPhoto
+import com.github.taasonei.randomfox.data.repository.FoxRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 

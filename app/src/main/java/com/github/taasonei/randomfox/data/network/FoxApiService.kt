@@ -1,4 +1,4 @@
-package com.github.taasonei.randomfox.network
+package com.github.taasonei.randomfox.data.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

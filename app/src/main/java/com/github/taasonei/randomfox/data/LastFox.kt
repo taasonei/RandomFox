@@ -2,8 +2,8 @@ package com.github.taasonei.randomfox.data
 
 import android.content.Context
 import android.util.Log
-import com.github.taasonei.randomfox.model.FoxPhoto
-import com.github.taasonei.randomfox.network.MoshiService
+import com.github.taasonei.randomfox.ui.model.FoxPhoto
+import com.github.taasonei.randomfox.data.network.MoshiService
 import java.io.File
 
 private const val FILENAME = "lastfox"

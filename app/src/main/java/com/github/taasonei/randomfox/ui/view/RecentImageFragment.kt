@@ -1,4 +1,4 @@
-package com.github.taasonei.randomfox.ui
+package com.github.taasonei.randomfox.ui.view
 
 import android.os.Bundle
 import android.view.*
@@ -10,8 +10,8 @@ import coil.request.ImageRequest
 import com.github.taasonei.randomfox.R
 import com.github.taasonei.randomfox.databinding.FragmentRecentImageBinding
 import com.github.taasonei.randomfox.extensions.onTouch
-import com.github.taasonei.randomfox.model.Status
-import com.github.taasonei.randomfox.viewmodel.RecentImageViewModel
+import com.github.taasonei.randomfox.ui.model.Status
+import com.github.taasonei.randomfox.ui.viewmodels.RecentImageViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class RecentImageFragment : Fragment() {
