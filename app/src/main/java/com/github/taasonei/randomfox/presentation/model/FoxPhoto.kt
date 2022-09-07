@@ -1,4 +1,4 @@
-package com.github.taasonei.randomfox.ui.model
+package com.github.taasonei.randomfox.presentation.model
 
 data class FoxPhoto(
     val link: String,

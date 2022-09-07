@@ -6,7 +6,7 @@ import com.github.taasonei.randomfox.data.LastFox
 import com.github.taasonei.randomfox.data.database.DatabaseFox
 import com.github.taasonei.randomfox.data.database.FoxDatabase
 import com.github.taasonei.randomfox.data.database.asFoxPhotoList
-import com.github.taasonei.randomfox.ui.model.FoxPhoto
+import com.github.taasonei.randomfox.presentation.model.FoxPhoto
 import com.github.taasonei.randomfox.data.network.FoxApi
 import com.github.taasonei.randomfox.data.network.asFoxPhoto
 import kotlinx.coroutines.flow.Flow

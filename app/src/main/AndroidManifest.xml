@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RandomFox">
         <activity
-            android:name="com.github.taasonei.randomfox.ui.view.MainActivity"
+            android:name="com.github.taasonei.randomfox.presentation.view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

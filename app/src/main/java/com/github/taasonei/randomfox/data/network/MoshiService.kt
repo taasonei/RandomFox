@@ -1,6 +1,6 @@
 package com.github.taasonei.randomfox.data.network
 
-import com.github.taasonei.randomfox.ui.model.FoxPhoto
+import com.github.taasonei.randomfox.presentation.model.FoxPhoto
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

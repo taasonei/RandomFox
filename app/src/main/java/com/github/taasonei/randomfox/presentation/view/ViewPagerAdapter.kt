@@ -1,4 +1,4 @@
-package com.github.taasonei.randomfox.ui.view
+package com.github.taasonei.randomfox.presentation.view
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

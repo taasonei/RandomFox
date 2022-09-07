@@ -2,7 +2,7 @@ package com.github.taasonei.randomfox.data
 
 import android.content.Context
 import android.util.Log
-import com.github.taasonei.randomfox.ui.model.FoxPhoto
+import com.github.taasonei.randomfox.presentation.model.FoxPhoto
 import com.github.taasonei.randomfox.data.network.MoshiService
 import java.io.File
 

@@ -1,4 +1,4 @@
-package com.github.taasonei.randomfox.ui.view
+package com.github.taasonei.randomfox.presentation.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
