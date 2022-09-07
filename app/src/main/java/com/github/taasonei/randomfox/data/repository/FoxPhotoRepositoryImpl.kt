@@ -2,6 +2,7 @@ package com.github.taasonei.randomfox.data.repository
 
 import com.github.taasonei.randomfox.data.source.local.FavouritesFoxPhotoDataSource
 import com.github.taasonei.randomfox.data.source.local.LastFoxPhotoDataSource
+import com.github.taasonei.randomfox.data.source.model.local.FavouriteFoxPhoto
 import com.github.taasonei.randomfox.data.source.remote.NetworkFoxPhotoDataSource
 import com.github.taasonei.randomfox.domain.model.FoxPhoto
 import com.github.taasonei.randomfox.domain.repository.FoxPhotoRepository
@@ -22,7 +23,13 @@ class FoxPhotoRepositoryImpl(
     }
 
     override suspend fun addToFavourites(foxPhoto: FoxPhoto) {
-        TODO("Not yet implemented")
+        favouritesFoxPhotoDataSource.add(
+            FavouriteFoxPhoto(
+                id = foxPhoto.id,
+                image = foxPhoto.image,
+                link = foxPhoto.link
+            )
+        )
     }
 
     override suspend fun deleteFromFavourites(foxPhoto: FoxPhoto) {
