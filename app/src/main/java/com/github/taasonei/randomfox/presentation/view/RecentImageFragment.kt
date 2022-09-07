@@ -11,7 +11,7 @@ import com.github.taasonei.randomfox.R
 import com.github.taasonei.randomfox.databinding.FragmentRecentImageBinding
 import com.github.taasonei.randomfox.extensions.onTouch
 import com.github.taasonei.randomfox.presentation.model.Status
-import com.github.taasonei.randomfox.presentation.viewmodels.RecentImageViewModel
+import com.github.taasonei.randomfox.presentation.viewmodels.RecentViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class RecentImageFragment : Fragment() {
@@ -20,7 +20,7 @@ class RecentImageFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private val viewModel: RecentImageViewModel by viewModels()
+    private val viewModel: RecentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

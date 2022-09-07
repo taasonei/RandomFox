@@ -13,7 +13,7 @@ interface FoxPhotoRepository {
 
     suspend fun deleteFromFavourites(foxPhoto: FoxPhoto)
 
-    suspend fun getFavouriteFoxPhotoId(rowId: Long)
+    suspend fun getFavouriteFoxPhotoId(rowId: Long): Long
 
     fun getFavourites(): Flow<List<FoxPhoto>>
 

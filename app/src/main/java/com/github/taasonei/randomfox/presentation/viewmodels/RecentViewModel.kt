@@ -1,8 +1,10 @@
 package com.github.taasonei.randomfox.presentation.viewmodels
 
 import android.util.Log
-import androidx.lifecycle.*
-import com.github.taasonei.randomfox.data.database.DatabaseFox
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.github.taasonei.randomfox.domain.model.FoxPhoto
 import com.github.taasonei.randomfox.domain.usecase.AddFoxPhotoToFavouritesUseCase
 import com.github.taasonei.randomfox.domain.usecase.DeleteFoxPhotoFromFavouritesUseCase
@@ -12,12 +14,12 @@ import com.github.taasonei.randomfox.presentation.model.Status
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class RecentImageViewModel(
+class RecentViewModel(
     private val getLastFoxPhotoUseCase: GetLastFoxPhotoUseCase,
     private val getRandomFoxPhotoUseCase: GetRandomFoxPhotoUseCase,
     private val addFoxPhotoToFavouritesUseCase: AddFoxPhotoToFavouritesUseCase,
     private val deleteFoxPhotoFromFavouritesUseCase: DeleteFoxPhotoFromFavouritesUseCase
-) : ViewModel( ) {
+) : ViewModel() {
 
     private var _foxPhoto = MutableLiveData<FoxPhoto>()
     val foxPhoto: LiveData<FoxPhoto>
@@ -64,38 +66,16 @@ class RecentImageViewModel(
     }
 
     fun insertToFavourites() {
-        val id = foxPhoto.value?.id
         val link = foxPhoto.value?.link
         val image = foxPhoto.value?.image
-        Log.d("tag", "insert $id $link $image")
 
         if (!link.isNullOrBlank() && !image.isNullOrBlank()) {
             viewModelScope.launch {
-                Log.d("tag", "currentId $id")
-
-                foxPhoto.value?.let { addFoxPhotoToFavouritesUseCase.execute(it) }
-
-                /*val rowId = if (id != null) {
-                    repository.insert(DatabaseFox(id = id, link = link, image = image))
-                } else {
-                    repository.insert(DatabaseFox(link = link, image = image))
-                }*/
-
-                val dbId = repository.getFoxPhotoId(rowId)
-                _foxPhoto.value?.isFavourite = true
-                _foxPhoto.value?.id = dbId
-
-                repository.writeData(
-                    FoxPhoto(
-                        id = dbId,
-                        link = link,
-                        image = image,
-                        isFavourite = true
-                    )
-                )
+                foxPhoto.value?.let { foxPhoto ->
+                    foxPhoto.id = addFoxPhotoToFavouritesUseCase.execute(foxPhoto)
+                    foxPhoto.isFavourite = true
+                }
             }
-
-            Log.d("tag", "foxPhoto after inserting ${foxPhoto.value}")
         }
     }
 
@@ -104,30 +84,13 @@ class RecentImageViewModel(
         val link = foxPhoto.value?.link
         val image = foxPhoto.value?.image
 
-        Log.d("tag", "$id $link $image")
-
         if (id != null && !link.isNullOrBlank() && !image.isNullOrBlank()) {
             viewModelScope.launch {
-                deleteFoxPhotoFromFavouritesUseCase.execute(
-                    FoxPhoto(
-                        id = id,
-                        image = image,
-                        link = link,
-                         isFavourite = false
-                    )
-                )
-
-                repository.writeData(
-                    FoxPhoto(
-                        id = null,
-                        link = link,
-                        image = image,
-                        isFavourite = false
-                    )
-                )
-
-                _foxPhoto.value?.isFavourite = false
-                _foxPhoto.value?.id = null
+                foxPhoto.value?.let { foxPhoto ->
+                    deleteFoxPhotoFromFavouritesUseCase.execute(foxPhoto)
+                    foxPhoto.isFavourite = false
+                    foxPhoto.id = null
+                }
             }
         }
     }
