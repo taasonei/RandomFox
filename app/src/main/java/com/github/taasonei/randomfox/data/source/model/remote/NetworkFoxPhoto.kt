@@ -8,9 +8,3 @@ data class NetworkFoxPhoto(
     @Json(name = "link") val link: String?
 )
 
-fun NetworkFoxPhoto.asFoxPhoto(): FoxPhoto {
-    return FoxPhoto(
-        image = this.image ?: "",
-        link = this.link ?: ""
-    )
-}

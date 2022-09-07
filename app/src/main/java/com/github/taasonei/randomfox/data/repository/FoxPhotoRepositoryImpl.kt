@@ -1,8 +1,8 @@
 package com.github.taasonei.randomfox.data.repository
 
+import com.github.taasonei.randomfox.data.mapper.asFavouriteFoxPhoto
 import com.github.taasonei.randomfox.data.source.local.FavouritesFoxPhotoDataSource
 import com.github.taasonei.randomfox.data.source.local.LastFoxPhotoDataSource
-import com.github.taasonei.randomfox.data.source.model.local.FavouriteFoxPhoto
 import com.github.taasonei.randomfox.data.source.remote.NetworkFoxPhotoDataSource
 import com.github.taasonei.randomfox.domain.model.FoxPhoto
 import com.github.taasonei.randomfox.domain.repository.FoxPhotoRepository
@@ -15,7 +15,7 @@ class FoxPhotoRepositoryImpl(
 ) : FoxPhotoRepository {
 
     override suspend fun getLastFoxPhoto(): FoxPhoto? {
-        TODO("Not yet implemented")
+        return lastFoxPhotoDataSource.getLastFox()
     }
 
     override suspend fun getRandomFoxPhoto(): FoxPhoto {
@@ -23,21 +23,15 @@ class FoxPhotoRepositoryImpl(
     }
 
     override suspend fun addToFavourites(foxPhoto: FoxPhoto) {
-        favouritesFoxPhotoDataSource.add(
-            FavouriteFoxPhoto(
-                id = foxPhoto.id,
-                image = foxPhoto.image,
-                link = foxPhoto.link
-            )
-        )
+        favouritesFoxPhotoDataSource.add(foxPhoto.asFavouriteFoxPhoto())
     }
 
     override suspend fun deleteFromFavourites(foxPhoto: FoxPhoto) {
-        TODO("Not yet implemented")
+        favouritesFoxPhotoDataSource.delete(foxPhoto.asFavouriteFoxPhoto())
     }
 
     override fun getFavourites(): Flow<List<FoxPhoto>> {
-        TODO("Not yet implemented")
+        return favouritesFoxPhotoDataSource.getListFoxPhoto()
     }
 
 }

@@ -1,6 +1,6 @@
 package com.github.taasonei.randomfox.data.source.remote
 
-import com.github.taasonei.randomfox.data.source.model.remote.asFoxPhoto
+import com.github.taasonei.randomfox.data.mapper.asFoxPhoto
 import com.github.taasonei.randomfox.domain.model.FoxPhoto
 
 class NetworkFoxPhotoDataSourceImpl(

@@ -5,7 +5,7 @@ import com.github.taasonei.randomfox.domain.model.FoxPhoto
 
 interface LastFoxPhotoDataSource {
 
-    suspend fun getLastFox(): FoxPhoto
+    suspend fun getLastFox(): FoxPhoto?
 
     suspend fun upsert(lastFox: LastFox)
 

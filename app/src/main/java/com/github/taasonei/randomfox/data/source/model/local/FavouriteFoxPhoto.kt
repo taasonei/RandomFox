@@ -13,13 +13,3 @@ data class FavouriteFoxPhoto(
     @ColumnInfo(name = "link") val link: String
 )
 
-fun List<FavouriteFoxPhoto>.asListFoxPhoto(): List<FoxPhoto> {
-    return map { favouriteFoxPhoto ->
-        FoxPhoto(
-            id = favouriteFoxPhoto.id,
-            image = favouriteFoxPhoto.image,
-            link = favouriteFoxPhoto.link,
-            isFavourite = true
-        )
-    }
-}

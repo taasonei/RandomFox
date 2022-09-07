@@ -11,12 +11,3 @@ data class LastFoxPhoto(
     @ColumnInfo(name = "link") val link: String,
     @ColumnInfo(name = "is_favourite") var isFavourite: Boolean = false
 )
-
-fun LastFoxPhoto.asFoxPhoto(): FoxPhoto {
-    return FoxPhoto(
-        id = this.id,
-        image = this.image,
-        link = this.link,
-        isFavourite = this.isFavourite
-    )
-}
