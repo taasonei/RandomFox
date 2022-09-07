@@ -9,9 +9,11 @@ interface FoxPhotoRepository {
 
     suspend fun getRandomFoxPhoto(): FoxPhoto
 
-    suspend fun addToFavourites(foxPhoto: FoxPhoto)
+    suspend fun addToFavourites(foxPhoto: FoxPhoto): Long
 
     suspend fun deleteFromFavourites(foxPhoto: FoxPhoto)
+
+    suspend fun getFavouriteFoxPhotoId(rowId: Long)
 
     fun getFavourites(): Flow<List<FoxPhoto>>
 

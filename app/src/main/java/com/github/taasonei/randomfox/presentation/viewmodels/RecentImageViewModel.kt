@@ -1,21 +1,23 @@
 package com.github.taasonei.randomfox.presentation.viewmodels
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.github.taasonei.randomfox.data.database.DatabaseFox
-import com.github.taasonei.randomfox.presentation.model.FoxPhoto
+import com.github.taasonei.randomfox.domain.model.FoxPhoto
+import com.github.taasonei.randomfox.domain.usecase.AddFoxPhotoToFavouritesUseCase
+import com.github.taasonei.randomfox.domain.usecase.DeleteFoxPhotoFromFavouritesUseCase
+import com.github.taasonei.randomfox.domain.usecase.GetLastFoxPhotoUseCase
+import com.github.taasonei.randomfox.domain.usecase.GetRandomFoxPhotoUseCase
 import com.github.taasonei.randomfox.presentation.model.Status
-import com.github.taasonei.randomfox.data.repository.FoxRepository
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class RecentImageViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository = FoxRepository(application.applicationContext)
+class RecentImageViewModel(
+    private val getLastFoxPhotoUseCase: GetLastFoxPhotoUseCase,
+    private val getRandomFoxPhotoUseCase: GetRandomFoxPhotoUseCase,
+    private val addFoxPhotoToFavouritesUseCase: AddFoxPhotoToFavouritesUseCase,
+    private val deleteFoxPhotoFromFavouritesUseCase: DeleteFoxPhotoFromFavouritesUseCase
+) : ViewModel( ) {
 
     private var _foxPhoto = MutableLiveData<FoxPhoto>()
     val foxPhoto: LiveData<FoxPhoto>
@@ -28,7 +30,7 @@ class RecentImageViewModel(application: Application) : AndroidViewModel(applicat
     init {
         viewModelScope.launch {
             try {
-                _foxPhoto.value = repository.firstLoadFoxPhoto()
+                _foxPhoto.value = getLastFoxPhotoUseCase.execute()
                 _status.value = Status.Success
             } catch (e: IllegalStateException) {
                 _status.value = Status.Error(e.message ?: "Something went wrong")
@@ -49,7 +51,7 @@ class RecentImageViewModel(application: Application) : AndroidViewModel(applicat
     fun getFoxPhoto() {
         viewModelScope.launch {
             try {
-                _foxPhoto.value = repository.loadFoxPhoto()
+                _foxPhoto.value = getRandomFoxPhotoUseCase.execute()
                 _status.value = Status.Success
             } catch (e: IllegalStateException) {
                 _status.value = Status.Error(e.message ?: "Something went wrong")
@@ -71,11 +73,13 @@ class RecentImageViewModel(application: Application) : AndroidViewModel(applicat
             viewModelScope.launch {
                 Log.d("tag", "currentId $id")
 
-                val rowId = if (id != null) {
+                foxPhoto.value?.let { addFoxPhotoToFavouritesUseCase.execute(it) }
+
+                /*val rowId = if (id != null) {
                     repository.insert(DatabaseFox(id = id, link = link, image = image))
                 } else {
                     repository.insert(DatabaseFox(link = link, image = image))
-                }
+                }*/
 
                 val dbId = repository.getFoxPhotoId(rowId)
                 _foxPhoto.value?.isFavourite = true
@@ -104,13 +108,15 @@ class RecentImageViewModel(application: Application) : AndroidViewModel(applicat
 
         if (id != null && !link.isNullOrBlank() && !image.isNullOrBlank()) {
             viewModelScope.launch {
-                repository.delete(
-                    DatabaseFox(
+                deleteFoxPhotoFromFavouritesUseCase.execute(
+                    FoxPhoto(
                         id = id,
+                        image = image,
                         link = link,
-                        image = image
+                         isFavourite = false
                     )
                 )
+
                 repository.writeData(
                     FoxPhoto(
                         id = null,
