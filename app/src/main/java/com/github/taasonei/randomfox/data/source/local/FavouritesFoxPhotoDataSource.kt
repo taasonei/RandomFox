@@ -8,7 +8,7 @@ interface FavouritesFoxPhotoDataSource {
 
     fun getListFoxPhoto(): Flow<List<FoxPhoto>>
 
-    suspend fun add(favouriteFoxPhoto: FavouriteFoxPhoto)
+    suspend fun add(favouriteFoxPhoto: FavouriteFoxPhoto): Long
 
     suspend fun delete(favouriteFoxPhoto: FavouriteFoxPhoto)
 

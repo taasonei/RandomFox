@@ -15,19 +15,23 @@ class FoxPhotoRepositoryImpl(
 ) : FoxPhotoRepository {
 
     override suspend fun getLastFoxPhoto(): FoxPhoto? {
-        return lastFoxPhotoDataSource.getLastFox()
+        return lastFoxPhotoDataSource.read()
     }
 
     override suspend fun getRandomFoxPhoto(): FoxPhoto {
         return networkFoxPhotoDataSource.getRandomFoxPhoto()
     }
 
-    override suspend fun addToFavourites(foxPhoto: FoxPhoto) {
+    override suspend fun addToFavourites(foxPhoto: FoxPhoto): Long {
         favouritesFoxPhotoDataSource.add(foxPhoto.asFavouriteFoxPhoto())
     }
 
     override suspend fun deleteFromFavourites(foxPhoto: FoxPhoto) {
         favouritesFoxPhotoDataSource.delete(foxPhoto.asFavouriteFoxPhoto())
+    }
+
+    override suspend fun getFavouriteFoxPhotoId(rowId: Long): Long {
+        TODO("Not yet implemented")
     }
 
     override fun getFavourites(): Flow<List<FoxPhoto>> {
