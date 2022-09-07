@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.github.taasonei.randomfox.presentation.model.FoxPhoto
 import com.github.taasonei.randomfox.databinding.ImageCardItemBinding
-import com.github.taasonei.randomfox.presentation.viewmodels.FavouritesListViewModel
+import com.github.taasonei.randomfox.presentation.viewmodels.FavouritesViewModel
 
-class ImageCardAdapter(private val viewModel: FavouritesListViewModel) : ListAdapter<FoxPhoto, ImageCardViewHolder>(
+class ImageCardAdapter(private val viewModel: FavouritesViewModel) : ListAdapter<FoxPhoto, ImageCardViewHolder>(
     ImageCardDiffUtil()
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageCardViewHolder {

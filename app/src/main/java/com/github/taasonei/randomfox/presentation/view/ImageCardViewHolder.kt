@@ -5,11 +5,11 @@ import coil.load
 import com.github.taasonei.randomfox.R
 import com.github.taasonei.randomfox.databinding.ImageCardItemBinding
 import com.github.taasonei.randomfox.presentation.model.FoxPhoto
-import com.github.taasonei.randomfox.presentation.viewmodels.FavouritesListViewModel
+import com.github.taasonei.randomfox.presentation.viewmodels.FavouritesViewModel
 
 class ImageCardViewHolder(private val binding: ImageCardItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(viewModel: FavouritesListViewModel, foxPhoto: FoxPhoto) {
+    fun bind(viewModel: FavouritesViewModel, foxPhoto: FoxPhoto) {
         binding.likeCheckbox.isChecked = foxPhoto.isFavourite
         binding.likeCheckbox.setOnClickListener {
             viewModel.deleteFromFavourites(foxPhoto)

@@ -4,11 +4,11 @@ import com.github.taasonei.randomfox.data.mapper.asFoxPhoto
 import com.github.taasonei.randomfox.domain.model.FoxPhoto
 
 class NetworkFoxPhotoDataSourceImpl(
-    private val foxPhotoApiService: FoxPhotoApiService
+    private val foxPhotoApi: FoxPhotoApi
 ) : NetworkFoxPhotoDataSource {
 
     override suspend fun getRandomFoxPhoto(): FoxPhoto {
-        val networkFoxPhoto = foxPhotoApiService.getFoxPhoto()
+        val networkFoxPhoto = foxPhotoApi.retrofitService.getFoxPhoto()
 
         if (networkFoxPhoto.image != null && networkFoxPhoto.link != null) {
             return networkFoxPhoto.asFoxPhoto()
