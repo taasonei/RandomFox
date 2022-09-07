@@ -18,7 +18,7 @@ class FoxPhotoRepositoryImpl(
     }
 
     override suspend fun getRandomFoxPhoto(): FoxPhoto {
-        TODO("Not yet implemented")
+        return networkFoxPhotoDataSource.getRandomFoxPhoto()
     }
 
     override suspend fun addToFavourites(foxPhoto: FoxPhoto) {
