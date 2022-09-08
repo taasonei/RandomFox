@@ -4,10 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.github.taasonei.randomfox.data.repository.FoxPhotoRepositoryImpl
-import com.github.taasonei.randomfox.data.source.local.FavouritesFoxPhotoDataSource
-import com.github.taasonei.randomfox.data.source.local.FavouritesFoxPhotoDataSourceImpl
-import com.github.taasonei.randomfox.data.source.local.FoxPhotoDatabase
-import com.github.taasonei.randomfox.data.source.local.LastFoxPhotoDataSource
+import com.github.taasonei.randomfox.data.source.local.*
 import com.github.taasonei.randomfox.data.source.remote.FoxPhotoApi
 import com.github.taasonei.randomfox.data.source.remote.NetworkFoxPhotoDataSource
 import com.github.taasonei.randomfox.data.source.remote.NetworkFoxPhotoDataSourceImpl
@@ -25,7 +22,8 @@ class FavouritesViewModelFactory(context: Context) : ViewModelProvider.Factory {
     private val networkFoxPhotoDataSource: NetworkFoxPhotoDataSource =
         NetworkFoxPhotoDataSourceImpl(foxPhotoApi = FoxPhotoApi)
 
-    private val lastFoxPhotoDataSource: LastFoxPhotoDataSource = TODO()
+    private val lastFoxPhotoDataSource: LastFoxPhotoDataSource =
+        LastFoxPhotoDataSourceImpl(context = context)
 
     private val foxPhotoRepository = FoxPhotoRepositoryImpl(
         favouritesFoxPhotoDataSource = favouritesFoxPhotoDataSource,

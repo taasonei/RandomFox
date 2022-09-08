@@ -6,16 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.taasonei.randomfox.domain.model.FoxPhoto
-import com.github.taasonei.randomfox.domain.usecase.AddFoxPhotoToFavouritesUseCase
-import com.github.taasonei.randomfox.domain.usecase.DeleteFoxPhotoFromFavouritesUseCase
-import com.github.taasonei.randomfox.domain.usecase.GetLastFoxPhotoUseCase
-import com.github.taasonei.randomfox.domain.usecase.GetRandomFoxPhotoUseCase
+import com.github.taasonei.randomfox.domain.usecase.*
 import com.github.taasonei.randomfox.presentation.model.Status
 import kotlinx.coroutines.launch
 import java.io.IOException
 
 class RecentViewModel(
     private val getLastFoxPhotoUseCase: GetLastFoxPhotoUseCase,
+    private val setLastFoxPhotoUseCase: SetLastFoxPhotoUseCase,
     private val getRandomFoxPhotoUseCase: GetRandomFoxPhotoUseCase,
     private val addFoxPhotoToFavouritesUseCase: AddFoxPhotoToFavouritesUseCase,
     private val deleteFoxPhotoFromFavouritesUseCase: DeleteFoxPhotoFromFavouritesUseCase
@@ -54,6 +52,7 @@ class RecentViewModel(
         viewModelScope.launch {
             try {
                 _foxPhoto.value = getRandomFoxPhotoUseCase.execute()
+                foxPhoto.value?.let { foxPhoto -> setLastFoxPhotoUseCase.execute(foxPhoto) }
                 _status.value = Status.Success
             } catch (e: IllegalStateException) {
                 _status.value = Status.Error(e.message ?: "Something went wrong")
@@ -74,6 +73,7 @@ class RecentViewModel(
                 foxPhoto.value?.let { foxPhoto ->
                     foxPhoto.id = addFoxPhotoToFavouritesUseCase.execute(foxPhoto)
                     foxPhoto.isFavourite = true
+                    setLastFoxPhotoUseCase.execute(foxPhoto)
                 }
             }
         }
@@ -90,6 +90,7 @@ class RecentViewModel(
                     deleteFoxPhotoFromFavouritesUseCase.execute(foxPhoto)
                     foxPhoto.isFavourite = false
                     foxPhoto.id = null
+                    setLastFoxPhotoUseCase.execute(foxPhoto)
                 }
             }
         }

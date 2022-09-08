@@ -4,17 +4,11 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.github.taasonei.randomfox.data.repository.FoxPhotoRepositoryImpl
-import com.github.taasonei.randomfox.data.source.local.FavouritesFoxPhotoDataSource
-import com.github.taasonei.randomfox.data.source.local.FavouritesFoxPhotoDataSourceImpl
-import com.github.taasonei.randomfox.data.source.local.FoxPhotoDatabase
-import com.github.taasonei.randomfox.data.source.local.LastFoxPhotoDataSource
+import com.github.taasonei.randomfox.data.source.local.*
 import com.github.taasonei.randomfox.data.source.remote.FoxPhotoApi
 import com.github.taasonei.randomfox.data.source.remote.NetworkFoxPhotoDataSource
 import com.github.taasonei.randomfox.data.source.remote.NetworkFoxPhotoDataSourceImpl
-import com.github.taasonei.randomfox.domain.usecase.AddFoxPhotoToFavouritesUseCase
-import com.github.taasonei.randomfox.domain.usecase.DeleteFoxPhotoFromFavouritesUseCase
-import com.github.taasonei.randomfox.domain.usecase.GetLastFoxPhotoUseCase
-import com.github.taasonei.randomfox.domain.usecase.GetRandomFoxPhotoUseCase
+import com.github.taasonei.randomfox.domain.usecase.*
 
 class RecentViewModelFactory(context: Context) : ViewModelProvider.Factory {
 
@@ -26,7 +20,8 @@ class RecentViewModelFactory(context: Context) : ViewModelProvider.Factory {
     private val networkFoxPhotoDataSource: NetworkFoxPhotoDataSource =
         NetworkFoxPhotoDataSourceImpl(foxPhotoApi = FoxPhotoApi)
 
-    private val lastFoxPhotoDataSource: LastFoxPhotoDataSource = TODO()
+    private val lastFoxPhotoDataSource: LastFoxPhotoDataSource =
+        LastFoxPhotoDataSourceImpl(context = context)
 
     private val foxPhotoRepository = FoxPhotoRepositoryImpl(
         favouritesFoxPhotoDataSource = favouritesFoxPhotoDataSource,
@@ -36,6 +31,9 @@ class RecentViewModelFactory(context: Context) : ViewModelProvider.Factory {
 
     private val getLastFoxPhotoUseCase =
         GetLastFoxPhotoUseCase(foxPhotoRepository = foxPhotoRepository)
+
+    private val setLastFoxPhotoUseCase =
+        SetLastFoxPhotoUseCase(foxPhotoRepository = foxPhotoRepository)
 
     private val getRandomFoxPhotoUseCase =
         GetRandomFoxPhotoUseCase(foxPhotoRepository = foxPhotoRepository)
@@ -49,6 +47,7 @@ class RecentViewModelFactory(context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return RecentViewModel(
             getLastFoxPhotoUseCase = getLastFoxPhotoUseCase,
+            setLastFoxPhotoUseCase = setLastFoxPhotoUseCase,
             getRandomFoxPhotoUseCase = getRandomFoxPhotoUseCase,
             addFoxPhotoToFavouritesUseCase = addFoxPhotoToFavouritesUseCase,
             deleteFoxPhotoFromFavouritesUseCase = deleteFoxPhotoFromFavouritesUseCase
