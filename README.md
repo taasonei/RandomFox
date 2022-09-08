@@ -8,7 +8,7 @@
   </a>
 </p>
 <p align="center">
-Get some random pictures of fluffy foxes 🦊 Save ones you loved the most to favourites. The app supports night theme
+Get some random pictures of fluffy foxes 🦊 Save ones you loved the most to favourites. The app supports dark theme
 </p>
 <p align="center">
 <img src="https://github.com/taasonei/RandomFox/blob/master/demo/demo_screens.png">
@@ -27,19 +27,19 @@ If you undo deleting the image from favourites it will show up on the same posit
 <img src=https://github.com/taasonei/RandomFox/blob/master/demo/demo_delete_from_favourites.gif width=50% height=50%>  
 
 ## TechStack
-MVVM  
-Kotlin coroutines, Kotlin Flow  
-Retrofit, Moshi  
-Coil  
-Room  
-Androix: ViewPager2, RecyclerView, ViewModel, LiveData  
+- Clean architecture, MVVM  
+- Kotlin coroutines, Kotlin Flow  
+- Retrofit, Moshi  
+- Coil  
+- Room  
+- Androix: ViewPager2, RecyclerView, ViewModel, LiveData  
 
 ## Roadmap
 Future plans for enhancements and development:  
-- Saving pictures
-- Refactoring from LiveData to Flow  
-- Clean Architecture  
-- Dependency Injection  
+- [ ] Saving pictures
+- [ ] Refactoring from LiveData to Flow  
+- [x] Clean Architecture  
+- [ ] Dependency Injection  
 
 ## Copyright
 <a href="https://www.flaticon.com/free-icons/fox" title="fox icons">The app icon with a fox created by Freepik - Flaticon</a>

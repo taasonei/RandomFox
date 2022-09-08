@@ -8,7 +8,7 @@
   </a>
 </p>
 <p align="center">
-Получи порцию пушистых лис по клику 🦊 Самых няшных можно добавить в избранное. Приложение поддерживат ночную тему
+Получи порцию пушистых лис по клику 🦊 Самых няшных можно добавить в избранное. Приложение поддерживат темную тему
 </p>
 <p align="center">
 <img src="https://github.com/taasonei/RandomFox/blob/master/demo/demo_screens.png">
@@ -27,19 +27,19 @@
 <img src=https://github.com/taasonei/RandomFox/blob/master/demo/demo_delete_from_favourites.gif width=50% height=50%>  
 
 ## TechStack
-MVVM  
-Kotlin coroutines, Kotlin Flow  
-Retrofit, Moshi  
-Coil  
-Room  
-Androix: ViewPager2, RecyclerView, ViewModel, LiveData  
+- Clean architecture, MVVM  
+- Kotlin coroutines, Kotlin Flow  
+- Retrofit, Moshi  
+- Coil  
+- Room  
+- Androix: ViewPager2, RecyclerView, ViewModel, LiveData  
 
 ## Roadmap
 Планы по улучшению и рефакторингу  
-- Сохранение фотографий
-- Рефакторинг LiveData на Flow  
-- Clean Architecture  
-- Dependency Injection  
+- [ ] Сохранение фотографий
+- [ ] Рефакторинг LiveData на Flow  
+- [x] Clean Architecture  
+- [ ] Dependency Injection  
 
 ## Copyright
 <a href="https://www.flaticon.com/free-icons/fox" title="fox icons">Иконка приложения с лисой создана Freepik - Flaticon</a>
