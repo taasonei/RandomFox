@@ -31,6 +31,7 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':domain')
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
     implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
