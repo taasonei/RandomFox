@@ -20,7 +20,9 @@ abstract class FoxPhotoDatabase : RoomDatabase() {
                     context.applicationContext,
                     FoxPhotoDatabase::class.java,
                     "fox_photo_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
 
                 INSTANCE = instance
                 return instance

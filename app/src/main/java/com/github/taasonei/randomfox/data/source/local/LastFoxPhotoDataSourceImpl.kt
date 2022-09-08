@@ -11,13 +11,14 @@ class LastFoxPhotoDataSourceImpl(context: Context) : LastFoxPhotoDataSource {
 
     private val file = File(context.filesDir, FILENAME)
 
-    override suspend fun read(): FoxPhoto {
+    override suspend fun read(): FoxPhoto? {
         val json = file.readText()
         return MoshiService.foxPhotoFromJson(json)
     }
 
     override suspend fun write(foxPhoto: FoxPhoto) {
-        MoshiService.foxPhotoToJson(foxPhoto)
+        val json = MoshiService.foxPhotoToJson(foxPhoto)
+        file.writeText(json)
     }
 
 }

@@ -18,6 +18,10 @@ class FoxPhotoRepositoryImpl(
         return lastFoxPhotoDataSource.read()
     }
 
+    override suspend fun setLastFoxPhoto(foxPhoto: FoxPhoto) {
+        lastFoxPhotoDataSource.write(foxPhoto)
+    }
+
     override suspend fun getRandomFoxPhoto(): FoxPhoto {
         return networkFoxPhotoDataSource.getRandomFoxPhoto()
     }

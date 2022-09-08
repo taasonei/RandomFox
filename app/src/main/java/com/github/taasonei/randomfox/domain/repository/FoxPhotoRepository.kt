@@ -7,6 +7,8 @@ interface FoxPhotoRepository {
 
     suspend fun getLastFoxPhoto(): FoxPhoto?
 
+    suspend fun setLastFoxPhoto(foxPhoto: FoxPhoto)
+
     suspend fun getRandomFoxPhoto(): FoxPhoto
 
     suspend fun addToFavourites(foxPhoto: FoxPhoto): Long

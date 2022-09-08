@@ -1,6 +1,6 @@
 package com.github.taasonei.randomfox.data.source.remote
 
-import com.github.taasonei.randomfox.data.network.MoshiService.moshi
+import com.github.taasonei.randomfox.data.source.MoshiService.moshi
 import com.github.taasonei.randomfox.data.source.model.remote.NetworkFoxPhoto
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
