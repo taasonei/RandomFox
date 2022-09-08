@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
 import com.github.taasonei.randomfox.R
 import com.github.taasonei.randomfox.databinding.FragmentFavouriteListBinding
 import com.github.taasonei.randomfox.presentation.viewmodels.FavouritesViewModel
+import com.github.taasonei.randomfox.presentation.viewmodels.FavouritesViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
@@ -19,7 +20,11 @@ class FavouritesListFragment : Fragment() {
     private var _binding: FragmentFavouriteListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: FavouritesViewModel by viewModels()
+    private val viewModel: FavouritesViewModel by viewModels {
+        FavouritesViewModelFactory(
+            requireContext()
+        )
+    }
 
     private var adapter: ImageCardAdapter? = null
 
