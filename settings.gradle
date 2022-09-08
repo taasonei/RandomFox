@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "RandomFox"
 include ':app'
+include ':domain'
+include ':data'
