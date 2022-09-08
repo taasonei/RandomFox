@@ -3,7 +3,6 @@ package com.github.taasonei.randomfox.data.source.model.local
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.github.taasonei.randomfox.domain.model.FoxPhoto
 
 @Entity(tableName = "favourites")
 data class FavouriteFoxPhoto(
