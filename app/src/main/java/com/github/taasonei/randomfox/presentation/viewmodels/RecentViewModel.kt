@@ -10,7 +10,9 @@ import com.github.taasonei.randomfox.presentation.mapper.asDomainFoxPhoto
 import com.github.taasonei.randomfox.presentation.mapper.asFoxPhoto
 import com.github.taasonei.randomfox.presentation.model.FoxPhoto
 import com.github.taasonei.randomfox.presentation.model.Status
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.IOException
 
 class RecentViewModel(
@@ -32,17 +34,10 @@ class RecentViewModel(
     init {
         viewModelScope.launch {
             try {
-                _foxPhoto.value = getLastFoxPhotoUseCase.execute().asFoxPhoto()
+                withContext(Dispatchers.IO) {
+                    _foxPhoto.postValue(getLastFoxPhotoUseCase.execute().asFoxPhoto())
+                }
                 _status.value = Status.Success
-            } catch (e: IllegalStateException) {
-                _status.value = Status.Error(e.message ?: "Something went wrong")
-                Log.d("tag", e.stackTraceToString())
-            } catch (e: IOException) {
-                _status.value = Status.Error(e.message ?: "Can't read datastore")
-                Log.d("tag", e.stackTraceToString())
-            } catch (e: NoSuchElementException) {
-                _status.value = Status.Error(e.message ?: "No such value in datastore")
-                Log.d("tag", e.stackTraceToString())
             } catch (e: Exception) {
                 _status.value = Status.Error(e.message ?: "Something went wrong")
                 Log.d("tag", e.stackTraceToString())
@@ -53,7 +48,9 @@ class RecentViewModel(
     fun getFoxPhoto() {
         viewModelScope.launch {
             try {
-                _foxPhoto.value = getRandomFoxPhotoUseCase.execute().asFoxPhoto()
+                withContext(Dispatchers.IO) {
+                    _foxPhoto.postValue(getRandomFoxPhotoUseCase.execute().asFoxPhoto())
+                }
                 foxPhoto.value?.let { foxPhoto ->
                     setLastFoxPhotoUseCase.execute(foxPhoto.asDomainFoxPhoto())
                 }
@@ -73,7 +70,7 @@ class RecentViewModel(
         val image = foxPhoto.value?.image
 
         if (!link.isNullOrBlank() && !image.isNullOrBlank()) {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 foxPhoto.value?.let { foxPhoto ->
                     foxPhoto.id =
                         addFoxPhotoToFavouritesUseCase.execute(foxPhoto.asDomainFoxPhoto())
@@ -90,7 +87,7 @@ class RecentViewModel(
         val image = foxPhoto.value?.image
 
         if (id != null && !link.isNullOrBlank() && !image.isNullOrBlank()) {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 foxPhoto.value?.let { foxPhoto ->
                     deleteFoxPhotoFromFavouritesUseCase.execute(foxPhoto.asDomainFoxPhoto())
                     foxPhoto.isFavourite = false

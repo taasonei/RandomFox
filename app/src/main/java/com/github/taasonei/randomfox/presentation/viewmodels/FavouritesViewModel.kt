@@ -10,6 +10,7 @@ import com.github.taasonei.randomfox.domain.usecase.GetFavouritesFoxPhotoUseCase
 import com.github.taasonei.randomfox.presentation.mapper.asDomainFoxPhoto
 import com.github.taasonei.randomfox.presentation.mapper.asFoxPhotoList
 import com.github.taasonei.randomfox.presentation.model.FoxPhoto
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -34,7 +35,7 @@ class FavouritesViewModel(
         if (foxPhoto.id != null) {
             _foxPhoto.value = foxPhoto
 
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 deleteFoxPhotoFromFavouritesUseCase.execute(foxPhoto.asDomainFoxPhoto())
             }
         }
@@ -42,7 +43,7 @@ class FavouritesViewModel(
 
     fun insertToFavourites(foxPhoto: FoxPhoto) {
         if (foxPhoto.id != null && foxPhoto.link.isNotBlank() && foxPhoto.image.isNotBlank()) {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 addFoxPhotoToFavouritesUseCase.execute(foxPhoto.asDomainFoxPhoto())
             }
         }
