@@ -14,12 +14,12 @@ class FoxPhotoRepositoryImpl(
     private val networkFoxPhotoDataSource: NetworkFoxPhotoDataSource
 ) : FoxPhotoRepository {
 
-    override suspend fun getLastFoxPhoto(): DomainFoxPhoto? {
+    override suspend fun getLastFoxPhoto(): DomainFoxPhoto {
         return lastFoxPhotoDataSource.read()
     }
 
     override suspend fun setLastFoxPhoto(domainFoxPhoto: DomainFoxPhoto) {
-        lastFoxPhotoDataSource.write(domainFoxPhoto)
+        lastFoxPhotoDataSource.write(domainFoxPhoto = domainFoxPhoto)
     }
 
     override suspend fun getRandomFoxPhoto(): DomainFoxPhoto {
@@ -27,15 +27,15 @@ class FoxPhotoRepositoryImpl(
     }
 
     override suspend fun addToFavourites(domainFoxPhoto: DomainFoxPhoto): Long {
-        return favouritesFoxPhotoDataSource.add(domainFoxPhoto.asFavouriteFoxPhoto())
+        return favouritesFoxPhotoDataSource.add(favouriteFoxPhoto = domainFoxPhoto.asFavouriteFoxPhoto())
     }
 
     override suspend fun deleteFromFavourites(domainFoxPhoto: DomainFoxPhoto) {
-        favouritesFoxPhotoDataSource.delete(domainFoxPhoto.asFavouriteFoxPhoto())
+        favouritesFoxPhotoDataSource.delete(favouriteFoxPhoto = domainFoxPhoto.asFavouriteFoxPhoto())
     }
 
     override suspend fun getFavouriteFoxPhotoId(rowId: Long): Long {
-        return favouritesFoxPhotoDataSource.getId(rowId)
+        return favouritesFoxPhotoDataSource.getId(rowId = rowId)
     }
 
     override fun getFavourites(): Flow<List<DomainFoxPhoto>> {

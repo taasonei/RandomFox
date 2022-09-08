@@ -11,4 +11,3 @@ data class FavouriteFoxPhoto(
     @ColumnInfo(name = "image") val image: String,
     @ColumnInfo(name = "link") val link: String
 )
-

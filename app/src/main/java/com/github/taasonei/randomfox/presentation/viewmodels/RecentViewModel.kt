@@ -13,7 +13,6 @@ import com.github.taasonei.randomfox.presentation.model.Status
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.IOException
 
 class RecentViewModel(
     private val getLastFoxPhotoUseCase: GetLastFoxPhotoUseCase,

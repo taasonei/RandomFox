@@ -43,7 +43,7 @@ class FavouritesListFragment : Fragment() {
         binding.favouritesList.adapter = adapter
 
         lifecycle.coroutineScope.launch {
-            viewModel.listFoxPhoto.collect() { list ->
+            viewModel.listFoxPhoto.collect { list ->
                 adapter?.submitList(list)
             }
         }
@@ -70,8 +70,4 @@ class FavouritesListFragment : Fragment() {
         adapter = null
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = FavouritesListFragment()
-    }
 }

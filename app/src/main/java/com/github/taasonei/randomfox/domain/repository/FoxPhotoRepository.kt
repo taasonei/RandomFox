@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface FoxPhotoRepository {
 
-    suspend fun getLastFoxPhoto(): DomainFoxPhoto?
+    suspend fun getLastFoxPhoto(): DomainFoxPhoto
 
     suspend fun setLastFoxPhoto(domainFoxPhoto: DomainFoxPhoto)
 

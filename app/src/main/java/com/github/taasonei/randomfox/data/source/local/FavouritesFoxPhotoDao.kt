@@ -10,9 +10,6 @@ interface FavouritesFoxPhotoDao {
     @Query("SELECT * FROM favourites ORDER BY id")
     fun getFavourites(): Flow<List<FavouriteFoxPhoto>>
 
-    @Query("SELECT * FROM favourites WHERE link = :link")
-    fun getPhotoByLink(link: String): FavouriteFoxPhoto?
-
     @Query("SELECT id FROM favourites WHERE rowid = :rowId")
     fun getPhotoIdByRowId(rowId: Long): Long
 
@@ -23,4 +20,3 @@ interface FavouritesFoxPhotoDao {
     fun delete(favouriteFoxPhoto: FavouriteFoxPhoto)
 
 }
-

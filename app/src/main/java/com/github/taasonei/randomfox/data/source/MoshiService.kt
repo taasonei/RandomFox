@@ -6,6 +6,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 object MoshiService {
+
     val moshi: Moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
@@ -19,4 +20,5 @@ object MoshiService {
     fun foxPhotoFromJson(json: String): DomainFoxPhoto {
         return jsonAdapter.fromJson(json) ?: DomainFoxPhoto(image = "", link = "")
     }
+
 }

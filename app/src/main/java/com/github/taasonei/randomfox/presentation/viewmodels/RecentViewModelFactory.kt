@@ -53,4 +53,6 @@ class RecentViewModelFactory(context: Context) : ViewModelProvider.Factory {
             deleteFoxPhotoFromFavouritesUseCase = deleteFoxPhotoFromFavouritesUseCase
         ) as T
     }
+
 }
+

@@ -8,11 +8,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
-    private val fragmentList = listOf(
-        RecentImageFragment.newInstance(),
-        FavouritesListFragment.newInstance()
-    )
-
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -68,7 +68,6 @@ class RecentImageFragment : Fragment() {
         viewModel.status.observe(viewLifecycleOwner) { status ->
             when (status) {
                 is Status.Error -> {
-                    // TODO error toast
                     Toast.makeText(requireContext(), status.message, Toast.LENGTH_SHORT).show()
                 }
                 is Status.Success -> {
@@ -76,8 +75,6 @@ class RecentImageFragment : Fragment() {
                     if (foxPhoto != null) {
                         loadPhoto(foxPhoto.image)
                         binding.recentImageCard.likeCheckbox.isChecked = foxPhoto.isFavourite
-                    } else {
-                        //TODO error toast
                     }
                 }
             }
@@ -103,7 +100,6 @@ class RecentImageFragment : Fragment() {
                 onError = { _, _ ->
                     hideProgressBar()
                     binding.recentImageCard.foxPhoto.setImageResource(R.drawable.ic_baseline_broken_image)
-                    // TODO error toast
                 })
             .build()
 
@@ -149,8 +145,4 @@ class RecentImageFragment : Fragment() {
             .show()
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = RecentImageFragment()
-    }
 }

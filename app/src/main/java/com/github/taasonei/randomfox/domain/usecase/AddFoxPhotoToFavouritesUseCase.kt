@@ -7,9 +7,14 @@ class AddFoxPhotoToFavouritesUseCase(private val foxPhotoRepository: FoxPhotoRep
 
     suspend fun execute(domainFoxPhoto: DomainFoxPhoto): Long {
         val rowId = if (domainFoxPhoto.id != null) {
-            foxPhotoRepository.addToFavourites(domainFoxPhoto)
+            foxPhotoRepository.addToFavourites(domainFoxPhoto = domainFoxPhoto)
         } else {
-            foxPhotoRepository.addToFavourites(DomainFoxPhoto(image = domainFoxPhoto.image, link = domainFoxPhoto.link))
+            foxPhotoRepository.addToFavourites(
+                DomainFoxPhoto(
+                    image = domainFoxPhoto.image,
+                    link = domainFoxPhoto.link
+                )
+            )
         }
 
         return foxPhotoRepository.getFavouriteFoxPhotoId(rowId)

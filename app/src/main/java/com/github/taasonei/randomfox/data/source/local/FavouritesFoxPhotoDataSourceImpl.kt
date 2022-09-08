@@ -17,14 +17,15 @@ class FavouritesFoxPhotoDataSourceImpl(
     }
 
     override suspend fun add(favouriteFoxPhoto: FavouriteFoxPhoto): Long {
-        return database.favouritesFoxPhotoDao().insert(favouriteFoxPhoto)
+        return database.favouritesFoxPhotoDao().insert(favouriteFoxPhoto = favouriteFoxPhoto)
     }
 
     override suspend fun delete(favouriteFoxPhoto: FavouriteFoxPhoto) {
-        database.favouritesFoxPhotoDao().delete(favouriteFoxPhoto)
+        database.favouritesFoxPhotoDao().delete(favouriteFoxPhoto = favouriteFoxPhoto)
     }
 
     override suspend fun getId(rowId: Long): Long {
-        return database.favouritesFoxPhotoDao().getPhotoIdByRowId(rowId)
+        return database.favouritesFoxPhotoDao().getPhotoIdByRowId(rowId = rowId)
     }
+
 }

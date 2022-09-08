@@ -9,6 +9,7 @@ import com.github.taasonei.randomfox.presentation.viewmodels.FavouritesViewModel
 
 class ImageCardViewHolder(private val binding: ImageCardItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
+
     fun bind(viewModel: FavouritesViewModel, foxPhoto: FoxPhoto) {
         binding.likeCheckbox.isChecked = foxPhoto.isFavourite
         binding.likeCheckbox.setOnClickListener {
@@ -18,4 +19,5 @@ class ImageCardViewHolder(private val binding: ImageCardItemBinding) :
             error(R.drawable.ic_baseline_broken_image)
         }
     }
+
 }

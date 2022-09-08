@@ -6,4 +6,3 @@ data class NetworkFoxPhoto(
     @Json(name = "image") val image: String?,
     @Json(name = "link") val link: String?
 )
-

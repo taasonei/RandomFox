@@ -11,13 +11,13 @@ class LastFoxPhotoDataSourceImpl(context: Context) : LastFoxPhotoDataSource {
 
     private val file = File(context.filesDir, FILENAME)
 
-    override suspend fun read(): DomainFoxPhoto? {
+    override suspend fun read(): DomainFoxPhoto {
         val json = file.readText()
-        return MoshiService.foxPhotoFromJson(json)
+        return MoshiService.foxPhotoFromJson(json = json)
     }
 
     override suspend fun write(domainFoxPhoto: DomainFoxPhoto) {
-        val json = MoshiService.foxPhotoToJson(domainFoxPhoto)
+        val json = MoshiService.foxPhotoToJson(domainFoxPhoto = domainFoxPhoto)
         file.writeText(json)
     }
 
