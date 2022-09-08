@@ -5,8 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.taasonei.randomfox.domain.model.FoxPhoto
 import com.github.taasonei.randomfox.domain.usecase.*
+import com.github.taasonei.randomfox.presentation.mapper.asDomainFoxPhoto
+import com.github.taasonei.randomfox.presentation.mapper.asFoxPhoto
+import com.github.taasonei.randomfox.presentation.model.FoxPhoto
 import com.github.taasonei.randomfox.presentation.model.Status
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -30,7 +32,7 @@ class RecentViewModel(
     init {
         viewModelScope.launch {
             try {
-                _foxPhoto.value = getLastFoxPhotoUseCase.execute()
+                _foxPhoto.value = getLastFoxPhotoUseCase.execute().asFoxPhoto()
                 _status.value = Status.Success
             } catch (e: IllegalStateException) {
                 _status.value = Status.Error(e.message ?: "Something went wrong")
@@ -51,8 +53,10 @@ class RecentViewModel(
     fun getFoxPhoto() {
         viewModelScope.launch {
             try {
-                _foxPhoto.value = getRandomFoxPhotoUseCase.execute()
-                foxPhoto.value?.let { foxPhoto -> setLastFoxPhotoUseCase.execute(foxPhoto) }
+                _foxPhoto.value = getRandomFoxPhotoUseCase.execute().asFoxPhoto()
+                foxPhoto.value?.let { foxPhoto ->
+                    setLastFoxPhotoUseCase.execute(foxPhoto.asDomainFoxPhoto())
+                }
                 _status.value = Status.Success
             } catch (e: IllegalStateException) {
                 _status.value = Status.Error(e.message ?: "Something went wrong")
@@ -71,9 +75,10 @@ class RecentViewModel(
         if (!link.isNullOrBlank() && !image.isNullOrBlank()) {
             viewModelScope.launch {
                 foxPhoto.value?.let { foxPhoto ->
-                    foxPhoto.id = addFoxPhotoToFavouritesUseCase.execute(foxPhoto)
+                    foxPhoto.id =
+                        addFoxPhotoToFavouritesUseCase.execute(foxPhoto.asDomainFoxPhoto())
                     foxPhoto.isFavourite = true
-                    setLastFoxPhotoUseCase.execute(foxPhoto)
+                    setLastFoxPhotoUseCase.execute(foxPhoto.asDomainFoxPhoto())
                 }
             }
         }
@@ -87,10 +92,10 @@ class RecentViewModel(
         if (id != null && !link.isNullOrBlank() && !image.isNullOrBlank()) {
             viewModelScope.launch {
                 foxPhoto.value?.let { foxPhoto ->
-                    deleteFoxPhotoFromFavouritesUseCase.execute(foxPhoto)
+                    deleteFoxPhotoFromFavouritesUseCase.execute(foxPhoto.asDomainFoxPhoto())
                     foxPhoto.isFavourite = false
                     foxPhoto.id = null
-                    setLastFoxPhotoUseCase.execute(foxPhoto)
+                    setLastFoxPhotoUseCase.execute(foxPhoto.asDomainFoxPhoto())
                 }
             }
         }

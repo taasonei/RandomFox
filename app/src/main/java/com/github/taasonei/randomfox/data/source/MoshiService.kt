@@ -1,6 +1,6 @@
 package com.github.taasonei.randomfox.data.source
 
-import com.github.taasonei.randomfox.domain.model.FoxPhoto
+import com.github.taasonei.randomfox.domain.model.DomainFoxPhoto
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -10,13 +10,13 @@ object MoshiService {
         .add(KotlinJsonAdapterFactory())
         .build()
 
-    private val jsonAdapter: JsonAdapter<FoxPhoto> = moshi.adapter(FoxPhoto::class.java)
+    private val jsonAdapter: JsonAdapter<DomainFoxPhoto> = moshi.adapter(DomainFoxPhoto::class.java)
 
-    fun foxPhotoToJson(foxPhoto: FoxPhoto): String {
-        return jsonAdapter.toJson(foxPhoto)
+    fun foxPhotoToJson(domainFoxPhoto: DomainFoxPhoto): String {
+        return jsonAdapter.toJson(domainFoxPhoto)
     }
 
-    fun foxPhotoFromJson(json: String): FoxPhoto {
-        return jsonAdapter.fromJson(json) ?: FoxPhoto(image = "", link = "")
+    fun foxPhotoFromJson(json: String): DomainFoxPhoto {
+        return jsonAdapter.fromJson(json) ?: DomainFoxPhoto(image = "", link = "")
     }
 }

@@ -9,7 +9,6 @@ import coil.imageLoader
 import coil.request.ImageRequest
 import com.github.taasonei.randomfox.R
 import com.github.taasonei.randomfox.databinding.FragmentRecentImageBinding
-import com.github.taasonei.randomfox.extensions.onTouch
 import com.github.taasonei.randomfox.presentation.model.Status
 import com.github.taasonei.randomfox.presentation.viewmodels.RecentViewModel
 import com.google.android.material.snackbar.Snackbar

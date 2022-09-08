@@ -3,17 +3,17 @@ package com.github.taasonei.randomfox.data.mapper
 import com.github.taasonei.randomfox.data.source.model.local.FavouriteFoxPhoto
 import com.github.taasonei.randomfox.data.source.model.local.LastFoxPhoto
 import com.github.taasonei.randomfox.data.source.model.remote.NetworkFoxPhoto
-import com.github.taasonei.randomfox.domain.model.FoxPhoto
+import com.github.taasonei.randomfox.domain.model.DomainFoxPhoto
 
-fun NetworkFoxPhoto.asFoxPhoto(): FoxPhoto {
-    return FoxPhoto(
+fun NetworkFoxPhoto.asFoxPhoto(): DomainFoxPhoto {
+    return DomainFoxPhoto(
         image = this.image ?: "",
         link = this.link ?: ""
     )
 }
 
-fun LastFoxPhoto.asFoxPhoto(): FoxPhoto {
-    return FoxPhoto(
+fun LastFoxPhoto.asFoxPhoto(): DomainFoxPhoto {
+    return DomainFoxPhoto(
         id = this.id,
         image = this.image,
         link = this.link,
@@ -21,9 +21,9 @@ fun LastFoxPhoto.asFoxPhoto(): FoxPhoto {
     )
 }
 
-fun List<FavouriteFoxPhoto>.asListFoxPhoto(): List<FoxPhoto> {
+fun List<FavouriteFoxPhoto>.asListFoxPhoto(): List<DomainFoxPhoto> {
     return map { favouriteFoxPhoto ->
-        FoxPhoto(
+        DomainFoxPhoto(
             id = favouriteFoxPhoto.id,
             image = favouriteFoxPhoto.image,
             link = favouriteFoxPhoto.link,
@@ -32,7 +32,7 @@ fun List<FavouriteFoxPhoto>.asListFoxPhoto(): List<FoxPhoto> {
     }
 }
 
-fun FoxPhoto.asFavouriteFoxPhoto(): FavouriteFoxPhoto {
+fun DomainFoxPhoto.asFavouriteFoxPhoto(): FavouriteFoxPhoto {
     return FavouriteFoxPhoto(
         id = this.id,
         image = this.image,

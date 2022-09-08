@@ -1,6 +1,6 @@
 package com.github.taasonei.randomfox.domain.model
 
-data class FoxPhoto(
+data class DomainFoxPhoto(
     var id: Long? = null,
     val image: String,
     val link: String,
